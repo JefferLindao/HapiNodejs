@@ -1,0 +1,18 @@
+{
+  "name": "hapinode",
+  "version": "1.0.0",
+  "description": "un sitio con StackOverflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JefferLindao",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.0.2",
+    "hapi": "^18.1.0"
+  }
+}

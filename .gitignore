@@ -1,0 +1,36 @@
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+node_modules
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# IDE
+.idea/*
+*.iml
+*.sublime-*
+
+# OSX
+.DS_Store
+.vscode
+
+# Docs Custom
+.cache/
+yarn-error.log
+
+# Build
+dist/
+
+#modulos
+paquete/npm/node_modules/
+paquete/utiles/node_modules/
+moviesApi/.nyc_output
+moviesApi/coverage
