@@ -3,8 +3,7 @@
 const Joi = require('@hapi/joi')
 const site = require('./controllers/site')
 const user = require('./controllers/user')
-module.exports =
-[
+module.exports = [
   {
     method: 'GET',
     path: '/',
@@ -12,13 +11,27 @@ module.exports =
   },
   {
     method: 'GET',
-    path: '/register',
-    handler: site.register
+    path: '/login',
+    handler: site.login
   },
   {
     method: 'POST',
+    path: '/validate-user',
     options: {
-      validate:{
+      validate: {
+        payload: Joi.object({
+          email: Joi.string().email().required(),
+          password: Joi.string().required().min(6)
+        })
+      }
+    },
+    handler: user.validateUser
+  },
+  {
+    method: 'POST',
+    path: '/create-user',
+    options: {
+      validate: {
         payload: Joi.object({
           name: Joi.string().required().min(3),
           email: Joi.string().email().required(),
@@ -26,7 +39,6 @@ module.exports =
         })
       }
     },
-    path: '/create-user',
     handler: user.createUser
   },
   {
