@@ -20,6 +20,11 @@ module.exports = [
     handler: site.login
   },
   {
+    method: 'GET',
+    path: '/register',
+    handler: site.register
+  },
+  {
     method: 'POST',
     path: '/validate-user',
     options: {
@@ -50,12 +55,18 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/{param*}',
+    path: '/assets/{param*}',
     handler: {
       directory: {
         path: '.',
         index: ['index.html']
       }
     }
+  },
+  {
+    method: ['GET', 'POST'],
+    path: '/{any*}',
+    handler: site.notFound
   }
+
 ]

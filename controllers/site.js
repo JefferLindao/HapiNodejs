@@ -27,8 +27,13 @@ function home(req, h) {
   })
 }
 
+function notFound(req, h) {
+  return h.view('404', {}, { layout: 'error-layout' }).code(404)
+}
+
 module.exports = {
   register: register,
   login: login,
+  notFound: notFound,
   home: home
 }
