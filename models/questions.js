@@ -1,5 +1,4 @@
 'use strict'
-
 class Questions {
   constructor(db) {
     this.db = db
@@ -9,8 +8,12 @@ class Questions {
 
   async create(data, user) {
     data.ower = user
-    const question = this.collection.push()
-    return question.key
+    const question = {
+      ...data
+    }
+    const newQuestion = this.collection.push(question)
+
+    return newQuestion.key
   }
 }
 

@@ -20,6 +20,16 @@ function login(req, h) {
   })
 }
 
+function ask(req, h) {
+  if (!req.state.user) {
+    return h.redirect('/login')
+  }
+  return h.view('ask', {
+    title: 'Crear pregunta',
+    user: req.state.user
+  })
+}
+
 function home(req, h) {
   return h.view('index', {
     title: 'home',
@@ -42,6 +52,7 @@ function fileNotFound(req, h) {
 module.exports = {
   register: register,
   login: login,
+  ask: ask,
   fileNotFound: fileNotFound,
   notFound: notFound,
   home: home
