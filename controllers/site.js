@@ -22,6 +22,24 @@ function login(req, h) {
   })
 }
 
+async function viewQuestion(req, h) {
+  let data
+  try {
+    data = await question.getOne(req.params.id)
+    if (!data) {
+      return notFound(req, h)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return h.view('question', {
+    title: 'Detalle de la pregunta',
+    user: req.state.user,
+    question: data,
+    key: req.params.id
+  })
+}
+
 function ask(req, h) {
   if (!req.state.user) {
     return h.redirect('/login')
@@ -62,6 +80,7 @@ module.exports = {
   register: register,
   login: login,
   ask: ask,
+  viewQuestion: viewQuestion,
   fileNotFound: fileNotFound,
   notFound: notFound,
   home: home
