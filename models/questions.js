@@ -36,6 +36,20 @@ class Questions {
     const newAnswers = await this.collection.child(data.id).child('answer').push(answers)
     return newAnswers
   }
+
+  async setAnswerRigth(questionId, answerId, user) {
+    const query = await this.collection.child(questionId).once('value')
+    const question = query.val()
+    const answers = question.answer
+    if (!user.email === question.ower.email) {
+      return false
+    }
+    for (let key in answers) {
+      answers[key].correct = (key === answerId)
+    }
+    const update = await this.collection.child(questionId).child('answer').update(answers)
+    return update
+  }
 }
 
 module.exports = Questions
