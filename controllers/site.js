@@ -51,12 +51,7 @@ function ask(req, h) {
 }
 
 async function home(req, h) {
-  let data
-  try {
-    data = await question.getLast(10)
-  } catch (error) {
-    console.error(error)
-  }
+  let data = await req.server.methods.getLast(10)
   return h.view('index', {
     title: 'home',
     user: req.state.user,

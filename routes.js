@@ -8,6 +8,12 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
+    options: {
+      cache: {
+        expiresIn: 100 * 30,
+        privacy: 'private'
+      }
+    },
     handler: site.home
   },
   {
