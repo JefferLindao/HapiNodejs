@@ -1,14 +1,23 @@
 'use strict'
-
+const { writeFile } = require('fs')
+const { promisify } = require('util')
+const { join } = require('path')
+const uuid = require('uuid')
 const questions = require('../models/index').questions
+
+const write = promisify(writeFile)
 
 async function createQuestion(req, h) {
   if (!req.state.user) {
     return h.redirect('/login')
   }
-  let result
+  let result, filename
   try {
-    result = await questions.create(req.payload, req.state.user)
+    if (Buffer.isBuffer(req.payload.image)) {
+      filename = `${uuid.v1()}.png`
+      await write(join(__dirname, '..', 'public', 'uploads', filename), req.payload.image)
+    }
+    result = await questions.create(req.payload, req.state.user, filename)
     console.log(`Pregunta creada con el ID ${result}`)
   } catch (error) {
     console.error(`Ocurrio un error: ${error}`)
@@ -17,7 +26,7 @@ async function createQuestion(req, h) {
       error: 'Problemas creando la pregunta'
     }).code(500).takeover()
   }
-  return h.response(`Pregunta creada con el ID ${result}`)
+  return h.response(`/question/${result}`)
 }
 
 async function answerQuestion(req, h) {

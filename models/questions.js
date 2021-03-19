@@ -6,12 +6,16 @@ class Questions {
     this.collection = this.ref.child('questions')
   }
 
-  async create(data, user) {
-    data.ower = user
+  async create(data, user, filename) {
     const question = {
-      ...data
+      description: data.description,
+      title: data.title,
+      ower: user
     }
-    const newQuestion = this.collection.push(question)
+    if (filename) {
+      question.filename = filename
+    }
+    const newQuestion = await this.collection.push(question)
 
     return newQuestion.key
   }
