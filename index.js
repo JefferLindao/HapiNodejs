@@ -1,5 +1,6 @@
 'use strict'
 const Hapi = require('@hapi/hapi')
+const crumd = require('crumb')
 const handlerbars = require('./lib/helpers')
 const inert = require('inert')
 const good = require('good')
@@ -33,6 +34,15 @@ async function init() {
             },
             'stdout'
           ]
+        }
+      }
+    })
+
+    await server.register({
+      plugin: crumd,
+      options: {
+        cookieOptions: {
+          isSecure: process.env.NODE_ENV === 'prod'
         }
       }
     })
